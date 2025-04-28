@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Player",
+  "description": "Represents a player in the system with their basic information and timestamps",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the player",
+      "minimum": 1,
+      "connect.index": 1,
+      "connect.type": "int64"
+    },
+    "username": {
+      "type": "string",
+      "description": "Player's unique username",
+      "minLength": 3,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "connect.index": 4
+    },
+    "name": {
+      "type": "string",
+      "description": "Player's full name",
+      "minLength": 1,
+      "maxLength": 100,
+      "connect.index": 3
+    },
+    "creation_date": {
+      "type": "integer",
+      "description": "Timestamp of when the player account was created",
+      "minimum": 0,
+      "connect.index": 0,
+      "connect.type": "int64",
+      "flink.type": "timestamp",
+      "flink.version": "1"
+    },
+    "last_login": {
+      "type": "integer",
+      "description": "Timestamp of the player's most recent login",
+      "minimum": 0,
+      "connect.index": 2,
+      "connect.type": "int64",
+      "flink.type": "timestamp",
+      "flink.version": "1"
+    }
+  },
+  "required": [
+    "id",
+    "username",
+    "name",
+    "creation_date",
+    "last_login"
+  ],
+  "additionalProperties": false
+}

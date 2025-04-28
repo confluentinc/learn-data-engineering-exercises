@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Game",
+    "description": "Schema for game session information",
+    "type": "object",
+    "properties": {
+        "game_id": {
+            "type": "integer",
+            "description": "Unique identifier for the game",
+            "minimum": 4000,
+            "maximum": 4999
+        },
+        "creator_id": {
+            "type": "integer",
+            "description": "Player ID of the game creator",
+            "minimum": 1000,
+            "maximum": 1999
+        },
+        "game_status": {
+            "type": "string",
+            "description": "Current status of the game",
+            "enum": ["created", "waiting", "in_progress", "completed", "cancelled"]
+        },
+        "game_type": {
+            "type": "string",
+            "description": "Type of game mode",
+            "enum": ["deathmatch", "team_deathmatch", "capture_the_flag", "domination"]
+        },
+        "max_players": {
+            "type": "integer",
+            "description": "Maximum number of players allowed in the game",
+            "minimum": 2,
+            "maximum": 16
+        },
+        "map_name": {
+            "type": "string",
+            "description": "Name of the game map being played",
+            "enum": ["arena_01", "desert_02", "space_station_03", "jungle_04", "urban_05"]
+        }
+    },
+    "required": [
+        "game_id",
+        "creator_id",
+        "game_status",
+        "game_type",
+        "max_players",
+        "map_name"
+    ],
+    "additionalProperties": false
+} 
