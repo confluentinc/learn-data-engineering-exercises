@@ -1,8 +1,8 @@
-{{ $game_id := atoi (get_v "game_id") }}
+{{ $game_id := atoi (get_v "game_id") }} {{ add_v_to_list "game_ids" (itoa $game_id) }}
 
 {
   "game_id": {{$game_id}},
-  "creator_id": {{integer 1000 1999}},
+  "creator_id": {{atoi (random_v_from_list "player_ids")}},
   "game_status": "{{randoms "created|in_progress|completed|cancelled"}}",
   "game_type": "{{randoms "deathmatch|team_deathmatch|capture_the_flag|domination"}}",
   "max_players": {{integer 2 16}},

@@ -4,17 +4,20 @@
     "description": "Schema for game player activity events",
     "type": "object",
     "properties": {
+        "activity_id": {
+            "type": "integer",
+            "description": "Unique identifier for the activity event",
+            "minimum": 7000
+        },
         "player_id": {
             "type": "integer",
             "description": "Unique identifier for the player",
-            "minimum": 1000,
-            "maximum": 1999
+            "minimum": 1000
         },
         "game_id": {
             "type": "integer",
             "description": "Unique identifier for the game session",
-            "minimum": 4000,
-            "maximum": 4999
+            "minimum": 4000
         },
         "event_type": {
             "type": "string",
@@ -51,6 +54,7 @@
         }
     },
     "required": [
+        "activity_id",
         "player_id",
         "game_id",
         "event_type",

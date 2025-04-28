@@ -1,4 +1,4 @@
-{{ $player_id := atoi (get_v "player_id") }}
+{{ $player_id := atoi (get_v "player_id") }} {{ add_v_to_list "player_ids" (itoa $player_id) }}
 
 {{ $f_name := name }}
 {{ $l_name := name }}

@@ -7,14 +7,12 @@
         "game_id": {
             "type": "integer",
             "description": "Unique identifier for the game",
-            "minimum": 4000,
-            "maximum": 4999
+            "minimum": 4000
         },
         "creator_id": {
             "type": "integer",
             "description": "Player ID of the game creator",
-            "minimum": 1000,
-            "maximum": 1999
+            "minimum": 1000
         },
         "game_status": {
             "type": "string",
