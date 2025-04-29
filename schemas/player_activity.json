@@ -64,6 +64,11 @@
             "type": "integer",
             "description": "Player ID of the opponent targeted by the event",
             "minimum": 1000
+        },
+        "current_place": {
+            "type": "integer",
+            "description": "The player's current place in the race (1 for first, 2 for second, etc.)",
+            "minimum": 1
         }
     },
     "required": [
@@ -74,7 +79,8 @@
         "powerup_type",
         "position_x",
         "position_y",
-        "opponent_id"
+        "opponent_id",
+        "current_place"
     ],
     "additionalProperties": false
 } 

@@ -8,5 +8,6 @@
   "powerup_type": "{{randoms "speed_boost|shield|oil_slick|rocket|trap|slowdown|jump|none"}}",
   "position_x": {{integer -255 255}},
   "position_y": {{integer -255 255}},
-  "opponent_id": {{atoi (random_v_from_list "player_ids")}}
+  "opponent_id": {{atoi (random_v_from_list "player_ids")}},
+  "current_place": {{integer 1 12}}
 }
