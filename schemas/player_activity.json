@@ -22,22 +22,30 @@
         "event_type": {
             "type": "string",
             "description": "Type of player activity event",
-            "enum": ["kill", "death", "objective", "powerup", "spawn", "respawn"]
-        },
-        "weapon_type": {
-            "type": "string",
-            "description": "Type of weapon used in the event",
             "enum": [
-                "laser_rifle",
-                "plasma_cannon",
-                "railgun",
-                "pulse_rifle",
-                "energy_sword",
-                "rocket_launcher",
-                "sniper_rifle",
-                "shotgun",
-                "particle_beam",
-                "quantum_blaster"
+                "completed_lap",
+                "went_off_track",
+                "kart_replaced_on_track",
+                "powerup_collected",
+                "powerup_used",
+                "opponent_hit_with_powerup",
+                "hit_by_opponents_powerup",
+                "opponent_passed",
+                "completed_race"
+            ]
+        },
+        "powerup_type": {
+            "type": "string",
+            "description": "Type of powerup used in the event",
+            "enum": [
+                "speed_boost",
+                "shield",
+                "oil_slick",
+                "rocket",
+                "trap",
+                "slowdown",
+                "jump",
+                "none"
             ]
         },
         "position_x": {
@@ -51,6 +59,11 @@
             "description": "Y coordinate of the player's position",
             "minimum": -255,
             "maximum": 255
+        },
+        "opponent_id": {
+            "type": "integer",
+            "description": "Player ID of the opponent targeted by the event",
+            "minimum": 1000
         }
     },
     "required": [
@@ -58,9 +71,10 @@
         "player_id",
         "game_id",
         "event_type",
-        "weapon_type",
+        "powerup_type",
         "position_x",
-        "position_y"
+        "position_y",
+        "opponent_id"
     ],
     "additionalProperties": false
 } 

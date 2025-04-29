@@ -21,8 +21,14 @@
         },
         "game_type": {
             "type": "string",
-            "description": "Type of game mode",
-            "enum": ["deathmatch", "team_deathmatch", "capture_the_flag", "domination"]
+            "description": "Type of race mode",
+            "enum": [
+                "grand_prix",
+                "time_trial",
+                "elimination",
+                "versus",
+                "relay"
+            ]
         },
         "max_players": {
             "type": "integer",
@@ -32,8 +38,19 @@
         },
         "map_name": {
             "type": "string",
-            "description": "Name of the game map being played",
-            "enum": ["arena_01", "desert_02", "space_station_03", "jungle_04", "urban_05"]
+            "description": "Name of the race track",
+            "enum": [
+                "sunset_speedway",
+                "frosty_fjord",
+                "volcano_valley",
+                "neon_city",
+                "jungle_run",
+                "desert_dash",
+                "cosmic_circuit",
+                "mountain_pass",
+                "harbor_hustle",
+                "candy_course"
+            ]
         }
     },
     "required": [
