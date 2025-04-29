@@ -4,13 +4,13 @@ This repository contains resources for the course "From Batch to Streaming: Mode
 
 ## Topics/Tables
 
-In these exercises, we will be consuming data that is stored in three separate topics. These topics will be exposed at Tables in the Confluent Data Streaming Platform.
+In these exercises, we will be consuming data that is stored in three separate topics. These topics will be exposed as Tables in the Confluent Data Streaming Platform.
 
-We will be modelling a simplified online multiplayer gaming domain. It is broken into three topics.
+We will be modelling a simplified online multiplayer **kart-racing game** domain. It is broken into three topics:
 
-- players - Contains details about the players, including: name, username, account creation date, etc.
-- games - Contains details about games at the time they are created, including: status, type, map name, max players.
-- player_activity - Contains details about events that happen in a game. They include references to the player and game that correspond with the event. Events contain details such as: event type, weapon type, player position.
+- **players** - Contains details about the players, including: name, username, account creation date, etc.
+- **games** - Contains details about races at the time they are created, including: status, race type, track name, and max players.
+- **player_activity** - Contains details about events that happen in a race. They include references to the player, opponent, and game that correspond with the event. Events contain details such as: event type, powerup type, player position, and opponent involved.
 
 ## Schemas
 
