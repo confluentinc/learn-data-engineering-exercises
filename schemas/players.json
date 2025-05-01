@@ -32,8 +32,7 @@
       "minimum": 0,
       "connect.index": 0,
       "connect.type": "int64",
-      "flink.type": "timestamp",
-      "flink.version": "1"
+      "title": "org.apache.kafka.connect.data.Timestamp"
     },
     "last_login": {
       "type": "integer",
@@ -41,8 +40,7 @@
       "minimum": 0,
       "connect.index": 2,
       "connect.type": "int64",
-      "flink.type": "timestamp",
-      "flink.version": "1"
+      "title": "org.apache.kafka.connect.data.Timestamp"
     }
   },
   "required": [
