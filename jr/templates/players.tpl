@@ -3,10 +3,13 @@
 {{ $f_name := name }}
 {{ $l_name := name }}
 
+{{ $creation_date := integer64 1641016800 1735711200}}
+{{ $last_login := integer64 $creation_date (unix_time_stamp 1) }}
+
 {
   "id": {{$player_id}},
   "name": "{{$f_name}} {{$l_name}}",
   "username": "{{username $f_name $l_name}}",
-  "creation_date": {{integer64 1641016800 1735711200}}000,
-  "last_login": {{integer64 1735711201 (unix_time_stamp 1)}}000
+  "creation_date": {{$creation_date}}000,
+  "last_login": {{$last_login}}000
 }

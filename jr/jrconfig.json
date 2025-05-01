@@ -4,10 +4,10 @@
       {
         "name": "player_activity",
         "locale": "us",
-        "num": 1,
+        "num": 25,
         "frequency": "1s",
         "duration": "3600s",
-        "preload": 1,
+        "preload": 0,
         "valueTemplate": "player_activity",
         "output": "kafka",
         "outputTemplate": "{{.V}}\n",
