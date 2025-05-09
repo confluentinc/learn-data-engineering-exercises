@@ -1,24 +1,31 @@
+-- Create the output table
 CREATE TABLE `data-engineering`.`exercises`.`player_rankings` (
-    player_id BIGINT NOT NULL,
-    ranking VARCHAR(20) NOT NULL,
-    top_3_finish_rate FLOAT NOT NULL,
+    player_id          BIGINT NOT NULL,
+    ranking            VARCHAR(20) NOT NULL,
+    top_3_finish_rate  FLOAT NOT NULL,
     PRIMARY KEY (player_id) NOT ENFORCED
 ) WITH (
-    'connector' = 'confluent',
-    'changelog.mode' = 'upsert',
+    'connector'            = 'confluent',
+    'changelog.mode'       = 'upsert',
     'kafka.retention.size' = '0 bytes',
     'kafka.retention.time' = '1 h',
-    'key.format' = 'json-registry',
-    'value.format' = 'json-registry',
+    'key.format'           = 'json-registry',
+    'value.format'         = 'json-registry',
     'value.fields-include' = 'all'
 );
 
+-- Calculate the ranking for each player based on their top 3 finish rate
+INSERT INTO `data-engineering`.`exercises`.`player_rankings`
 SELECT 
     player_id,
     CASE 
         WHEN top_3_finish_rate > 66 THEN 'expert'
         WHEN top_3_finish_rate BETWEEN 34 AND 66 THEN 'intermediate'
         ELSE 'beginner'
-    END as ranking,
+    END AS ranking,
     top_3_finish_rate
-FROM `data-engineering`.`exercises`.`player_completion_stats`; 
+FROM 
+    `data-engineering`.`exercises`.`player_completion_statistics`; 
+
+-- Check the output
+SELECT * FROM `data-engineering`.`exercises`.`player_rankings`;
