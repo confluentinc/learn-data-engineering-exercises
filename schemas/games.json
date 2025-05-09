@@ -51,6 +51,15 @@
                 "harbor_hustle",
                 "candy_course"
             ]
+        },
+        "players": {
+            "type": "array",
+            "description": "List of player IDs currently in the game",
+            "items": {
+                "type": "integer",
+                "minimum": 1000
+            },
+            "maxItems": 16
         }
     },
     "required": [

@@ -1,10 +1,11 @@
-{{ $player_id := atoi (get_v "player_id") }} {{ add_v_to_list "player_ids" (itoa $player_id) }}
+{{- $player_id := get_v "player_id" -}} 
+{{- add_v_to_list "player_ids" $player_id -}}
 
-{{ $f_name := name }}
-{{ $l_name := name }}
+{{- $f_name := name -}}
+{{- $l_name := surname -}}
 
-{{ $creation_date := integer64 1641016800 1735711200}}
-{{ $last_login := integer64 $creation_date (unix_time_stamp 1) }}
+{{- $creation_date := integer64 1641016800 1735711200 -}}
+{{- $last_login := integer64 $creation_date (unix_time_stamp 1) -}}
 
 {
   "id": {{$player_id}},
