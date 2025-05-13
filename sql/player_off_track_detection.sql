@@ -1,4 +1,3 @@
-
 -- Create the output table
 CREATE TABLE `data-engineering`.`exercises`.`player_off_track_detection` (
     player_id       BIGINT NOT NULL,
@@ -20,11 +19,9 @@ CREATE TABLE `data-engineering`.`exercises`.`player_off_track_detection` (
 
 -- Calculate the off track count for each player in each game
 -- Then, calculate the place for each player in each game
--- Then, join the off track counts and race positions 
+-- Then, join the off track counts and race positions using an interval join
 -- And finally, filter for players with 4 or more off track counts and places 3 or lower
 -- These players can be flagged as potential cheaters.
--- We include a 1 minute window to help manage the state of the window and ensure that we can
--- maintain an append-only stream.
 INSERT INTO `data-engineering`.`exercises`.`player_off_track_detection`
 WITH off_track_counts AS (
     SELECT 
@@ -32,7 +29,8 @@ WITH off_track_counts AS (
         game_id,
         COUNT(*) AS off_track_count,
         window_start,
-        window_end
+        window_end,
+        window_time
     FROM 
         TUMBLE (
             TABLE `data-engineering`.`exercises`.`player_activity`,
@@ -45,21 +43,17 @@ WITH off_track_counts AS (
         player_id,
         game_id,
         window_start,
-        window_end
+        window_end,
+        window_time
 ),
 race_positions AS (
     SELECT 
         player_id,
         game_id,
         current_place AS place,
-        window_start,
-        window_end
+        $rowtime AS event_time
     FROM 
-        TUMBLE (
-            TABLE `data-engineering`.`exercises`.`player_activity`,
-            DESCRIPTOR($rowtime),
-            INTERVAL '1' MINUTE
-        )
+        `data-engineering`.`exercises`.`player_activity`
     WHERE 
         event_type = 'completed_race'
 )
@@ -75,8 +69,7 @@ FROM
     JOIN race_positions rp 
         ON otc.player_id = rp.player_id 
         AND otc.game_id = rp.game_id
-        AND otc.window_start = rp.window_start
-        AND otc.window_end = rp.window_end
+        AND rp.event_time BETWEEN otc.window_time - INTERVAL '1' MINUTE AND otc.window_time + INTERVAL '10' MINUTE
 WHERE otc.off_track_count >= 4 AND rp.place <= 3;
 
 -- Check the output
