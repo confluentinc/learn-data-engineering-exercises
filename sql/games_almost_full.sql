@@ -1,5 +1,5 @@
 -- Create the output table
-CREATE TABLE `data-engineering`.`exercises`.`games_almost_full` (
+CREATE TABLE `data_engineering`.`exercises`.`games_almost_full` (
     window_start     TIMESTAMP(3) NOT NULL,
     window_end       TIMESTAMP(3) NOT NULL,
     game_id          BIGINT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE `data-engineering`.`exercises`.`games_almost_full` (
 );
 
 -- Determine which games have less than 3 remaining spots and are waiting for players.
-INSERT INTO `data-engineering`.`exercises`.`games_almost_full`
+INSERT INTO `data_engineering`.`exercises`.`games_almost_full`
 SELECT
     window_start,
     window_end,
@@ -41,4 +41,4 @@ WHERE
     AND game_status = 'waiting';
 
 -- Check the output
-SELECT * FROM `data-engineering`.`exercises`.`games_almost_full`;
+SELECT * FROM `data_engineering`.`exercises`.`games_almost_full`;

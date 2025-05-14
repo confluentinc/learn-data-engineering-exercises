@@ -1,5 +1,5 @@
 -- Create the output table
-CREATE TABLE `data-engineering`.`exercises`.`potential_churn` (
+CREATE TABLE `data_engineering`.`exercises`.`potential_churn` (
     player_id          BIGINT NOT NULL,
     name              VARCHAR(100) NOT NULL,
     username          VARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `data-engineering`.`exercises`.`potential_churn` (
 );
 
 -- Detect users who have not logged in for 90 days
-INSERT INTO `data-engineering`.`exercises`.`potential_churn`
+INSERT INTO `data_engineering`.`exercises`.`potential_churn`
 SELECT
     id AS player_id,
     name,
@@ -27,9 +27,9 @@ SELECT
     TIMESTAMPDIFF(DAY, last_login, CURRENT_TIMESTAMP) AS days_since_login,
     CURRENT_TIMESTAMP AS detection_date
 FROM 
-    `data-engineering`.`exercises`.`players`
+    `data_engineering`.`exercises`.`players`
 WHERE 
     last_login < CURRENT_TIMESTAMP - INTERVAL '90' DAY;
 
 -- Check the output
-SELECT * FROM `data-engineering`.`exercises`.`potential_churn`;
+SELECT * FROM `data_engineering`.`exercises`.`potential_churn`;

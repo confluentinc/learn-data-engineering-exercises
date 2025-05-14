@@ -1,4 +1,4 @@
-CREATE TABLE `data-engineering`.`exercises`.`retention_by_month` (
+CREATE TABLE `data_engineering`.`exercises`.`retention_by_month` (
     signup_month       VARCHAR(7) NOT NULL,
     total_signups      BIGINT NOT NULL,
     month_1_retention  DOUBLE NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `data-engineering`.`exercises`.`retention_by_month` (
 );
 
 -- Determine the retention periods grouped by signup month
-INSERT INTO `data-engineering`.`exercises`.`retention_by_month`
+INSERT INTO `data_engineering`.`exercises`.`retention_by_month`
 WITH player_months AS (
     SELECT
         id,
@@ -26,7 +26,7 @@ WITH player_months AS (
         DATE_FORMAT(last_login, 'yyyy-MM') AS last_login_month,
         TIMESTAMPDIFF(MONTH, creation_date, last_login) AS months_retained
     FROM 
-        `data-engineering`.`exercises`.`players`
+        `data_engineering`.`exercises`.`players`
 )
 SELECT
     signup_month,
@@ -42,4 +42,4 @@ GROUP BY
     signup_month;
 
 -- Observe the results
-SELECT * FROM `data-engineering`.`exercises`.`retention_by_month`;
+SELECT * FROM `data_engineering`.`exercises`.`retention_by_month`;
