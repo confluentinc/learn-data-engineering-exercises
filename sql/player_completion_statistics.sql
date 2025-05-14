@@ -1,6 +1,5 @@
-
 -- Create the output table
-CREATE TABLE `data-engineering`.`exercises`.`player_completion_statistics` (
+CREATE TABLE `data_engineering`.`exercises`.`player_completion_statistics` (
     player_id             BIGINT NOT NULL,
     finished_races        BIGINT NOT NULL,
     first_place_finishes  BIGINT NOT NULL,
@@ -28,7 +27,7 @@ CREATE TABLE `data-engineering`.`exercises`.`player_completion_statistics` (
 );
 
 -- Calculate the completion statistics for each player
-INSERT INTO `data-engineering`.`exercises`.`player_completion_statistics`
+INSERT INTO `data_engineering`.`exercises`.`player_completion_statistics`
 WITH finish_positions AS (
     SELECT
         player_id,
@@ -42,7 +41,7 @@ WITH finish_positions AS (
         MAX(current_place) AS worst_finish,
         AVG(current_place) AS average_finish
     FROM 
-        `data-engineering`.`exercises`.`player_activity`
+        `data_engineering`.`exercises`.`player_activity`
     WHERE 
         event_type = 'completed_race'
     GROUP BY 
@@ -68,4 +67,4 @@ FROM
     finish_positions;
 
 -- Check the output
-SELECT * FROM `data-engineering`.`exercises`.`player_completion_statistics`;
+SELECT * FROM `data_engineering`.`exercises`.`player_completion_statistics`;
