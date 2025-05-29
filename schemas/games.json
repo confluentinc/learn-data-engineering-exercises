@@ -36,7 +36,7 @@
             "minimum": 2,
             "maximum": 16
         },
-        "map_name": {
+        "track_name": {
             "type": "string",
             "description": "Name of the race track",
             "enum": [
@@ -59,7 +59,7 @@
         "game_status",
         "game_type",
         "max_players",
-        "map_name"
+        "track_name"
     ],
     "additionalProperties": false
 } 
