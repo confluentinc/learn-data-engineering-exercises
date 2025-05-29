@@ -1,0 +1,7 @@
+bootstrap.servers=<bootstrap.servers>
+security.protocol=SASL_SSL
+sasl.mechanisms=PLAIN
+sasl.username=<key>
+sasl.password=<secret>
+compression.type=gzip
+compression.level=9

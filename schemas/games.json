@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Game",
+    "description": "Schema for game session information",
+    "type": "object",
+    "properties": {
+        "game_id": {
+            "type": "integer",
+            "description": "Unique identifier for the game",
+            "minimum": 4000
+        },
+        "creator_id": {
+            "type": "integer",
+            "description": "Player ID of the game creator",
+            "minimum": 1000
+        },
+        "game_status": {
+            "type": "string",
+            "description": "Current status of the game",
+            "enum": ["created", "waiting", "in_progress", "completed", "cancelled"]
+        },
+        "game_type": {
+            "type": "string",
+            "description": "Type of race mode",
+            "enum": [
+                "grand_prix",
+                "time_trial",
+                "elimination",
+                "versus",
+                "relay"
+            ]
+        },
+        "max_players": {
+            "type": "integer",
+            "description": "Maximum number of players allowed in the game",
+            "minimum": 2,
+            "maximum": 16
+        },
+        "track_name": {
+            "type": "string",
+            "description": "Name of the race track",
+            "enum": [
+                "sunset_speedway",
+                "frosty_fjord",
+                "volcano_valley",
+                "neon_city",
+                "jungle_run",
+                "desert_dash",
+                "cosmic_circuit",
+                "mountain_pass",
+                "harbor_hustle",
+                "candy_course"
+            ]
+        }
+    },
+    "required": [
+        "game_id",
+        "creator_id",
+        "game_status",
+        "game_type",
+        "max_players",
+        "track_name"
+    ],
+    "additionalProperties": false
+} 

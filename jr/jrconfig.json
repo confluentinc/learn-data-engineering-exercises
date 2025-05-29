@@ -1,0 +1,60 @@
+{
+  "emitters": {
+    "gaming": [
+      {
+        "name": "player_activity",
+        "locale": "us",
+        "num": 1,
+        "frequency": "1s",
+        "duration": "3600s",
+        "preload": 1,
+        "valueTemplate": "player_activity",
+        "output": "kafka",
+        "outputTemplate": "{{.V}}\n",
+        "keyTemplate": "{{ $activity_id := counter `activity_id` 7000 1 }}{{ set_v `activity_id` (itoa $activity_id) }}{{$activity_id}}",
+        "topic": "player_activity"
+      },
+      {
+        "name": "games",
+        "locale": "us",
+        "num": 1,
+        "frequency": "1s",
+        "duration": "3600s",
+        "preload": 100,
+        "valueTemplate": "games",
+        "output": "kafka",
+        "outputTemplate": "{{.V}}\n",
+        "keyTemplate": "{{ $game_id := counter `game_id` 4000 1 }}{{ set_v `game_id` (itoa $game_id) }}{{$game_id}}",
+        "topic": "games"
+      },
+      {
+        "name": "players",
+        "locale": "us",
+        "num": 1,
+        "frequency": "1s",
+        "duration": "3600s",
+        "preload": 100,
+        "valueTemplate": "players",
+        "output": "kafka",
+        "outputTemplate": "{{.V}}\n",
+        "keyTemplate": "{{ $player_id := counter `player_id` 1000 1 }}{{ set_v `player_id` (itoa $player_id) }}{{$player_id}}",
+        "topic": "players"
+      }
+    ]
+  },
+  "global": {
+      "seed": -1,
+      "kafkaConfig": "./jr/kafka/config.properties",
+      "schemaRegistry": false,
+      "registryConfig": "./jr/kafka/registry.properties",
+      "serializer": "json-schema",
+      "autoCreate": false,
+      "redisTtl": "1m",
+      "redisConfig": "./jr/redis/config.json",
+      "mongoConfig": "./jr/mongoDB/config.json",
+      "elasticConfig": "./jr/elastic/config.json",
+      "s3Config": "./jr/s3/config.json",
+      "gcsConfig": "./jr/gcs/config.json",
+      "url": ""
+    }
+  }

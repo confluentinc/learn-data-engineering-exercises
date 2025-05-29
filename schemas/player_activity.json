@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Player Activity",
+    "description": "Schema for game player activity events",
+    "type": "object",
+    "properties": {
+        "activity_id": {
+            "type": "integer",
+            "description": "Unique identifier for the activity event",
+            "minimum": 7000
+        },
+        "player_id": {
+            "type": "integer",
+            "description": "Unique identifier for the player",
+            "minimum": 1000
+        },
+        "game_id": {
+            "type": "integer",
+            "description": "Unique identifier for the game session",
+            "minimum": 4000
+        },
+        "event_type": {
+            "type": "string",
+            "description": "Type of player activity event",
+            "enum": [
+                "completed_lap",
+                "went_off_track",
+                "kart_replaced_on_track",
+                "powerup_collected",
+                "powerup_used",
+                "opponent_hit_with_powerup",
+                "hit_by_opponents_powerup",
+                "opponent_passed",
+                "completed_race"
+            ]
+        },
+        "powerup_type": {
+            "type": "string",
+            "description": "Type of powerup used in the event",
+            "enum": [
+                "speed_boost",
+                "shield",
+                "oil_slick",
+                "rocket",
+                "trap",
+                "slowdown",
+                "jump",
+                "none"
+            ]
+        },
+        "position_x": {
+            "type": "integer",
+            "description": "X coordinate of the player's position",
+            "minimum": -255,
+            "maximum": 255
+        },
+        "position_y": {
+            "type": "integer",
+            "description": "Y coordinate of the player's position",
+            "minimum": -255,
+            "maximum": 255
+        },
+        "opponent_id": {
+            "type": "integer",
+            "description": "Player ID of the opponent targeted by the event",
+            "minimum": 1000
+        },
+        "current_place": {
+            "type": "integer",
+            "description": "The player's current place in the race (1 for first, 2 for second, etc.)",
+            "minimum": 1
+        }
+    },
+    "required": [
+        "activity_id",
+        "player_id",
+        "game_id",
+        "event_type",
+        "powerup_type",
+        "position_x",
+        "position_y",
+        "opponent_id",
+        "current_place"
+    ],
+    "additionalProperties": false
+} 
