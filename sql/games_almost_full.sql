@@ -4,7 +4,7 @@ CREATE TABLE `data_engineering`.`exercises`.`games_almost_full` (
     window_end       TIMESTAMP(3) NOT NULL,
     game_id          BIGINT NOT NULL,
     game_type        STRING NOT NULL,
-    map_name         STRING NOT NULL,
+    track_name       STRING NOT NULL,
     max_players      BIGINT NOT NULL,
     current_players  BIGINT NOT NULL,
     remaining_spots  BIGINT NOT NULL,
@@ -26,7 +26,7 @@ SELECT
     window_end,
     game_id,
     game_type,
-    map_name,
+    track_name,
     max_players,
     CARDINALITY(players) AS current_players,
     max_players - CARDINALITY(players) AS remaining_spots
