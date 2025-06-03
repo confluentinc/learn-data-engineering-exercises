@@ -10,7 +10,7 @@
   "game_status": "{{randoms "created|waiting|in_progress|completed|cancelled"}}",
   "game_type": "{{randoms "grand_prix|time_trial|elimination|versus|relay"}}",
   "max_players": {{$max_players}},
-  "track_name": "{{randoms "sunset_speedway|frosty_fjord|volcano_valley|neon_city|jungle_run|desert_dash|cosmic_circuit|mountain_pass|harbor_hustle|candy_course"}}"
+  "track_name": "{{randoms "sunset_speedway|frosty_fjord|volcano_valley|neon_city|jungle_run|desert_dash|cosmic_circuit|mountain_pass|harbor_hustle|candy_course"}}",
   "players": [
     {{- range $i := array $num_players }}
     {{- if gt $i 0 }},{{ end }}
