@@ -2,23 +2,23 @@
   "emitters": {
     "gaming": [
       {
-        "name": "player_activity",
+        "name": "players",
         "locale": "us",
         "num": 1,
-        "frequency": "1s",
+        "frequency": "7s",
         "duration": "3600s",
-        "preload": 1,
-        "valueTemplate": "player_activity",
+        "preload": 100,
+        "valueTemplate": "players",
         "output": "kafka",
         "outputTemplate": "{{.V}}\n",
-        "keyTemplate": "{{ $activity_id := counter `activity_id` 7000 1 }}{{ set_v `activity_id` (itoa $activity_id) }}{{$activity_id}}",
-        "topic": "player_activity"
+        "keyTemplate": "{{ $player_id := counter `player_id` 1000 1 }}{{ set_v `player_id` (itoa $player_id) }}{{$player_id}}",
+        "topic": "players"
       },
       {
         "name": "games",
         "locale": "us",
         "num": 1,
-        "frequency": "1s",
+        "frequency": "5s",
         "duration": "3600s",
         "preload": 100,
         "valueTemplate": "games",
@@ -28,17 +28,17 @@
         "topic": "games"
       },
       {
-        "name": "players",
+        "name": "player_activity",
         "locale": "us",
-        "num": 1,
+        "num": 25,
         "frequency": "1s",
         "duration": "3600s",
-        "preload": 100,
-        "valueTemplate": "players",
+        "preload": 0,
+        "valueTemplate": "player_activity",
         "output": "kafka",
         "outputTemplate": "{{.V}}\n",
-        "keyTemplate": "{{ $player_id := counter `player_id` 1000 1 }}{{ set_v `player_id` (itoa $player_id) }}{{$player_id}}",
-        "topic": "players"
+        "keyTemplate": "{{ $activity_id := counter `activity_id` 7000 1 }}{{ set_v `activity_id` (itoa $activity_id) }}{{$activity_id}}",
+        "topic": "player_activity"
       }
     ]
   },
