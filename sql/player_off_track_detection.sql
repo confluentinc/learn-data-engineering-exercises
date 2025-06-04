@@ -1,5 +1,5 @@
 -- Create the output table
-CREATE TABLE `data_engineering`.`exercises`.`player_off_track_detection` (
+CREATE TABLE data_engineering.exercises.player_off_track_detection (
     player_id       BIGINT NOT NULL,
     game_id         BIGINT NOT NULL,
     off_track_count BIGINT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `data_engineering`.`exercises`.`player_off_track_detection` (
 -- Then, join the off track counts and race positions using an interval join
 -- And finally, filter for players with 4 or more off track counts and places 3 or lower
 -- These players can be flagged as potential cheaters.
-INSERT INTO `data_engineering`.`exercises`.`player_off_track_detection`
+INSERT INTO data_engineering.exercises.player_off_track_detection
 WITH off_track_counts AS (
     SELECT 
         player_id,
@@ -33,7 +33,7 @@ WITH off_track_counts AS (
         window_time
     FROM 
         TUMBLE (
-            TABLE `data_engineering`.`exercises`.`player_activity`,
+            TABLE data_engineering.exercises.player_activity,
             DESCRIPTOR($rowtime),
             INTERVAL '1' MINUTE
         )
@@ -53,7 +53,7 @@ race_positions AS (
         current_place AS place,
         $rowtime AS event_time
     FROM 
-        `data_engineering`.`exercises`.`player_activity`
+        data_engineering.exercises.player_activity
     WHERE 
         event_type = 'completed_race'
 )
@@ -73,4 +73,4 @@ FROM
 WHERE otc.off_track_count >= 4 AND rp.place <= 3;
 
 -- Check the output
-SELECT * FROM `data_engineering`.`exercises`.`player_off_track_detection`;
+SELECT * FROM data_engineering.exercises.player_off_track_detection;

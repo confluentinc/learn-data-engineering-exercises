@@ -41,4 +41,4 @@ WHERE
     AND game_status = 'waiting';
 
 -- Check the output
-SELECT * FROM `data_engineering`.`exercises`.`games_almost_full`;
+SELECT * FROM data_engineering.exercises.games_almost_full;

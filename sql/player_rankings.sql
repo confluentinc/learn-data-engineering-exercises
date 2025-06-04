@@ -1,5 +1,5 @@
 -- Create the output table
-CREATE TABLE `data_engineering`.`exercises`.`player_rankings` (
+CREATE TABLE data_engineering.exercises.player_rankings (
     player_id          BIGINT NOT NULL,
     ranking            VARCHAR(20) NOT NULL,
     top_3_finish_rate  FLOAT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `data_engineering`.`exercises`.`player_rankings` (
 );
 
 -- Calculate the ranking for each player based on their top 3 finish rate
-INSERT INTO `data_engineering`.`exercises`.`player_rankings`
+INSERT INTO data_engineering.exercises.player_rankings
 SELECT 
     player_id,
     CASE 
@@ -25,7 +25,7 @@ SELECT
     END AS ranking,
     top_3_finish_rate
 FROM 
-    `data_engineering`.`exercises`.`player_completion_statistics`; 
+    data_engineering.exercises.player_completion_statistics; 
 
 -- Check the output
-SELECT * FROM `data_engineering`.`exercises`.`player_rankings`;
+SELECT * FROM data_engineering.exercises.player_rankings;
