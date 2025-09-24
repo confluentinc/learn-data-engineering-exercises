@@ -1,0 +1,18 @@
+services:
+  trino:
+    image: trinodb/trino:latest
+    container_name: tableflow-trino
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./trino-config:/etc/trino
+    environment:
+      - TRINO_ENVIRONMENT=development
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/v1/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s

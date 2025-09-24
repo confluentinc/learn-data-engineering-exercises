@@ -20,8 +20,8 @@ fi
 confluent quickstart \
     --environment-name data_engineering \
     --kafka-cluster-name exercises \
-    --cloud gcp \
-    --region us-central1 \
+    --cloud aws \
+    --region ap-northeast-1 \
     --create-kafka-key \
     --kafka-properties-file ./jr/kafka/config.properties \
     --compute-pool-name data_engineering \
