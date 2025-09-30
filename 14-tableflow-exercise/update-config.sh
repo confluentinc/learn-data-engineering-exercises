@@ -1,58 +1,74 @@
 #!/bin/bash
 
-# Update Trino configuration with environment variables from .env
+# Update Trino configuration with values from flink.properties and tableflow.properties
 
 echo "🔧 Updating Trino configuration..."
 
-if [ ! -f ".env" ]; then
-    echo "❌ .env file not found. Please create it from .env.template first."
-    echo "   Run: cp .env.template .env"
-    echo "   Then edit .env with your Confluent Cloud credentials."
+# Check if property files exist (try both locations for flexibility)
+FLINK_PROPS_FILE=""
+TABLEFLOW_PROPS_FILE=""
+
+if [ -f "./flink.properties" ]; then
+    FLINK_PROPS_FILE="./flink.properties"
+elif [ -f "../flink.properties" ]; then
+    FLINK_PROPS_FILE="../flink.properties"
+else
+    echo "❌ flink.properties file not found in current or parent directory."
     exit 1
 fi
 
-# Load environment variables
-source .env
+if [ -f "./tableflow.properties" ]; then
+    TABLEFLOW_PROPS_FILE="./tableflow.properties"
+elif [ -f "../tableflow.properties" ]; then
+    TABLEFLOW_PROPS_FILE="../tableflow.properties"
+else
+    echo "❌ tableflow.properties file not found in current or parent directory."
+    exit 1
+fi
 
-# Validate required environment variables
-if [ -z "$CONFLUENT_API_KEY" ] || [ -z "$CONFLUENT_API_SECRET" ] || [ -z "$TABLEFLOW_REST_CATALOG_URI" ] || [ -z "$CONFLUENT_REGION" ]; then
-    echo "❌ Missing required environment variables in .env file:"
-    echo "   - CONFLUENT_API_KEY"
-    echo "   - CONFLUENT_API_SECRET" 
-    echo "   - TABLEFLOW_REST_CATALOG_URI"
-    echo "   - CONFLUENT_REGION"
+# Read values from flink.properties
+echo "📖 Reading values from flink.properties..."
+FLINK_REGION=$(grep "^client.region=" "$FLINK_PROPS_FILE" | cut -d'=' -f2)
+
+# Read values from tableflow.properties
+echo "📖 Reading values from tableflow.properties..."
+TABLEFLOW_API_KEY=$(grep "^tableflow.api-key=" "$TABLEFLOW_PROPS_FILE" | cut -d'=' -f2)
+TABLEFLOW_API_SECRET=$(grep "^tableflow.api-secret=" "$TABLEFLOW_PROPS_FILE" | cut -d'=' -f2)
+TABLEFLOW_CATALOG_ENDPOINT=$(grep "^tableflow.catalog-endpoint=" "$TABLEFLOW_PROPS_FILE" | cut -d'=' -f2)
+
+# Validate required values
+if [ -z "$FLINK_REGION" ] || [ -z "$TABLEFLOW_API_KEY" ] || [ -z "$TABLEFLOW_API_SECRET" ] || [ -z "$TABLEFLOW_CATALOG_ENDPOINT" ]; then
+    echo "❌ Missing required values in property files:"
+    echo "   - FLINK_REGION: $FLINK_REGION"
+    echo "   - TABLEFLOW_API_KEY: $TABLEFLOW_API_KEY"
+    echo "   - TABLEFLOW_API_SECRET: $TABLEFLOW_API_SECRET"
+    echo "   - TABLEFLOW_CATALOG_ENDPOINT: $TABLEFLOW_CATALOG_ENDPOINT"
     echo ""
-    echo "Please update your .env file with the correct values."
+    echo "Please check your property files have the correct values."
     exit 1
 fi
 
-echo "📝 Updating iceberg.properties with your credentials..."
+echo "✅ All required values found:"
+echo "   - Region: $FLINK_REGION"
+echo "   - API Key: ${TABLEFLOW_API_KEY:0:8}..."
+echo "   - Catalog Endpoint: $TABLEFLOW_CATALOG_ENDPOINT"
 
-# Update iceberg.properties with actual TableFlow values
+echo "📝 Updating iceberg.properties with values from property files..."
+
+# Update iceberg.properties with values from flink.properties and tableflow.properties
 cat > trino-config/catalog/iceberg.properties << EOF
 connector.name=iceberg
 iceberg.catalog.type=rest
-iceberg.rest-catalog.oauth2.credential=${CONFLUENT_API_KEY}:${CONFLUENT_API_SECRET}
+iceberg.rest-catalog.oauth2.credential=${TABLEFLOW_API_KEY}:${TABLEFLOW_API_SECRET}
 iceberg.rest-catalog.security=OAUTH2
-iceberg.rest-catalog.uri=${TABLEFLOW_REST_CATALOG_URI}
+iceberg.rest-catalog.uri=${TABLEFLOW_CATALOG_ENDPOINT}
 iceberg.rest-catalog.vended-credentials-enabled=true
 
 fs.native-s3.enabled=true
-s3.region=${CONFLUENT_REGION}
+s3.region=${FLINK_REGION}
 
 iceberg.security=read_only
 EOF
 
-echo "✅ Trino configuration updated with your credentials"
-echo "🔄 Restarting Trino container..."
-docker compose restart
-
-echo "⏳ Waiting for Trino to be ready..."
-sleep 10
-
-if curl -s http://localhost:8080/v1/info > /dev/null 2>&1; then
-    echo "✅ Trino is ready with updated configuration!"
-    echo "🌐 Web UI: http://localhost:8080"
-else
-    echo "❌ Trino failed to start. Check logs: docker-compose logs"
-fi
+echo "✅ Trino configuration updated with values from property files"
+echo "🎯 Configuration injection complete!"
