@@ -27,6 +27,5 @@ target
 config.properties
 registry.properties
 flink.properties
-14-tableflow-exercise/.env
-14-tableflow-exercise/trino-config/catalog/iceberg.properties
+iceberg.properties
 tableflow.properties
