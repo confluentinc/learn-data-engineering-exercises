@@ -7,21 +7,22 @@ Simple Trino Docker setup that connects to Confluent Cloud TableFlow for queryin
 1. **Setup:**
    ```bash
    ./update-config.sh
-   docker compose up -d
-   docker exec 
    ```
 ## Commands
 
 ```bash
 # Start Trino
-docker-compose up -d
+docker compose up -d
+
+# Get a Trino SQL shell
+docker compose exec trino trino --server http://localhost:8080sho
 
 # Stop Trino
-docker-compose down
+docker compose down
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Restart after config changes
-docker-compose restart
+docker compose restart
 ```
