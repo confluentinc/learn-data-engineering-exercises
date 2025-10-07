@@ -1,3 +1,4 @@
+-- Analyze recovery times from off-track events
 WITH recovery_times AS (
   SELECT 
     g.track_name,

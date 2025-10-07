@@ -1,0 +1,11 @@
+connector.name=iceberg
+iceberg.catalog.type=rest
+iceberg.rest-catalog.oauth2.credential=<key>:<secret>
+iceberg.rest-catalog.security=OAUTH2
+iceberg.rest-catalog.uri=<Catalog URI>
+iceberg.rest-catalog.vended-credentials-enabled=true
+
+fs.native-s3.enabled=true
+s3.region=<region>
+
+iceberg.security=read_only

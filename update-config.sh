@@ -56,6 +56,10 @@ echo "   - Catalog Endpoint: $TABLEFLOW_CATALOG_ENDPOINT"
 echo "📝 Updating iceberg.properties with values from property files..."
 
 # Update iceberg.properties with values from flink.properties and tableflow.properties
+if ! mkdir -p trino-config/catalog; then
+    echo "❌ Failed to create directory trino-config/catalog"
+    exit 1
+fi
 cat > trino-config/catalog/iceberg.properties << EOF
 connector.name=iceberg
 iceberg.catalog.type=rest
