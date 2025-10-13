@@ -21,7 +21,7 @@ confluent quickstart \
     --environment-name data_engineering \
     --kafka-cluster-name exercises \
     --cloud aws \
-    --region ap-northeast-1 \
+    --region us-west-2 \
     --create-kafka-key \
     --kafka-librdkafka-properties-file ./jr/kafka/config.properties \
     --compute-pool-name data_engineering \
