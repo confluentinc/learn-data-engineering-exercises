@@ -38,7 +38,7 @@ This uses the JR configuration files found in the `jr` folder. You do not need t
 
 ## TableFlow Trino Demo
 
-Simple Trino Docker setup that connects to Confluent Cloud TableFlow for querying Iceberg tables via web UI. It uses configuration values that are in the `flink.properties` and `tableflow.properties` files.
+Simple Trino Docker setup that connects to Confluent Cloud TableFlow for querying Iceberg tables via web UI. It uses configuration values that are in the `tableflow.properties` files.
 
 ### Quick Start
 
@@ -53,7 +53,7 @@ Simple Trino Docker setup that connects to Confluent Cloud TableFlow for queryin
 docker compose up -d
 
 # Get a Trino SQL shell
-docker compose exec trino trino --server http://localhost:8080sho
+docker compose exec trino trino --server http://localhost:8080
 
 # Stop Trino
 docker compose down
