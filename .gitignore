@@ -26,3 +26,6 @@ target
 # Properties files (may contain user credentials)
 config.properties
 registry.properties
+flink.properties
+iceberg.properties
+tableflow.properties

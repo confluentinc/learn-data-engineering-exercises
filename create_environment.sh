@@ -20,9 +20,12 @@ fi
 confluent quickstart \
     --environment-name data_engineering \
     --kafka-cluster-name exercises \
-    --cloud gcp \
-    --region us-central1 \
+    --cloud aws \
+    --region us-west-2 \
     --create-kafka-key \
-    --kafka-properties-file ./jr/kafka/config.properties \
+    --kafka-librdkafka-properties-file ./jr/kafka/config.properties \
     --compute-pool-name data_engineering \
-    --max-cfu 10
+    --max-cfu 10 \
+    --create-tableflow-key \
+    --tableflow-properties-file ./tableflow.properties
+
